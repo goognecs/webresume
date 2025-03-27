@@ -13,11 +13,13 @@ Deploy an application with GitHub Actions and Amazon S3.
 ### 1. __Create an S3 Bucket__
 * Head to [AWS S3](https://console.aws.amazon.com/s3) Console → Create bucket 
 * Name it exactly my domain name (iamnecs.com)
+
 ![image](https://github.com/goognecs/webresume/blob/main/images/S3_bucket.PNG)
 
 * Enable Static Website Hosting (under "Properties")
 
 * Select "Host a static website"
+
 ![image](https://github.com/goognecs/webresume/blob/main/images/static_website.PNG)
 * Set index.html as the Index Document
 
@@ -121,7 +123,6 @@ git push -u origin main
   * Name: github-actions-s3-deploy
   * Access Type: Programmatic access (for AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY)
 Attach S3 Permissions Policy
-
   * Attach the following inline policy (replace your-bucket-name):
 ```json
 {
@@ -141,17 +142,12 @@ Attach S3 Permissions Policy
             ]
         }
     ]
-}```
-
-The website's HTML, JS, and CSS files are stored in an S3 bucket. The website is deployed using CloudFront for content distribution and is accessed securely via HTTPS. Route 53 and ACM are used to redirect traffic to the specified domain and manage SSL certificates.
+}
+```
 
 ## Services used
-S3
-
-Route 53
-
-ACM
-
-CloudFront
-
-Dynamo DB
+* S3
+* Route 53
+* ACM
+* CloudFront
+* Dynamo DB
