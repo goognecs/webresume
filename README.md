@@ -38,8 +38,8 @@ In my own case, I already have one on [www.namecheap.com]()
 * Enter your domain (iamnecs.com and *.iamnecs.com for wildcard).
 
 * Validate via DNS (Route 53 can auto-validate).
+![SSL Certificate](https://github.com/goognecs/webresume/blob/main/images/acm1.PNG)
 
-(![SSL Certificate](https://github.com/goognecs/webresume/blob/main/images/acm1.PNG))
 ### 5. __Transfer DNS to AWS Route 53__
 The requirement is to have DNS records in AWS, you need to delegate DNS from Namecheap to AWS Route 53:
 #### 1. Create a Hosted Zone in Route 53
@@ -48,7 +48,7 @@ The requirement is to have DNS records in AWS, you need to delegate DNS from Nam
 
    * Enter your domain (iamnecs.com)
    * Copy the generated NS (Name Server) records (e.g., ns-xxx.awsdns-xx.com).
-
+![SSL]()
 #### 2. Update Namecheap’s Nameservers to AWS
 
    * Log in to Namecheap → Domain List → Select your domain
@@ -58,7 +58,7 @@ The requirement is to have DNS records in AWS, you need to delegate DNS from Nam
    * Enter the 4 AWS nameservers from your Route 53 Hosted Zone.
 
    * Save changes (DNS propagation may take up to 48 hours).
-![SSL]()
+![NS Records](https://github.com/goognecs/webresume/blob/main/images/NS%20Record.PNG)
 
 ### 6. Configure A/DNS Records in Route 53
 It's time to set up the A record to point to the S3 bucket:
@@ -71,11 +71,11 @@ It's time to set up the A record to point to the S3 bucket:
   * Alias: Yes → Alias to S3 website endpoint.
 
   * Select the correct S3 endpoint (e.g., s3-website-us-east-1.amazonaws.com) 
-![SSL]()
+![S3 Endpoint](https://github.com/goognecs/webresume/blob/main/images/a_record.PNG)
 
 ### 7. Create a CloudFront Distribution
 
-1. Origin Domain: Select your S3 static website endpoint (resume.iamnecs.com.s3-website-us-east-1.amazonaws.com) ![SSL]()
+1. Origin Domain: Select your S3 static website endpoint (resume.iamnecs.com.s3-website-us-east-1.amazonaws.com) ![Cloudfront](https://github.com/goognecs/webresume/blob/main/images/cloud_front.PNG)
 
 2. Viewer Protocol Policy: Redirect HTTP to HTTPS.
 
