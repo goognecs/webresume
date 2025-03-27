@@ -48,7 +48,7 @@ The requirement is to have DNS records in AWS, you need to delegate DNS from Nam
 
    * Enter your domain (iamnecs.com)
    * Copy the generated NS (Name Server) records (e.g., ns-xxx.awsdns-xx.com).
-![SSL]()
+![NS](https://github.com/goognecs/webresume/blob/main/images/NS%20Record.PNG)
 #### 2. Update Namecheap’s Nameservers to AWS
 
    * Log in to Namecheap → Domain List → Select your domain
@@ -70,18 +70,20 @@ It's time to set up the A record to point to the S3 bucket:
 
   * Alias: Yes → Alias to S3 website endpoint.
 
-  * Select the correct S3 endpoint (e.g., s3-website-us-east-1.amazonaws.com) 
+  * Select the correct S3 endpoint (e.g., s3-website-us-east-1.amazonaws.com)
+
 ![S3 Endpoint](https://github.com/goognecs/webresume/blob/main/images/a_record.PNG)
 
 ### 7. Create a CloudFront Distribution
 
-1. Origin Domain: Select your S3 static website endpoint (resume.iamnecs.com.s3-website-us-east-1.amazonaws.com) ![Cloudfront](https://github.com/goognecs/webresume/blob/main/images/cloud_front.PNG)
+1. Origin Domain: Select your S3 static website endpoint (resume.iamnecs.com.s3-website-us-east-1.amazonaws.com) 
+![Cloudfront](https://github.com/goognecs/webresume/blob/main/images/cloud_front.PNG)
 
 2. Viewer Protocol Policy: Redirect HTTP to HTTPS.
 
 3. SSL Certificate:
 
-   * Select the SSL certificate we created on Amazon Certificate Manager for resume.iamnecs.com ![SSL]()
+   * Select the SSL certificate we created on Amazon Certificate Manager for resume.iamnecs.com ![CF_SSL](https://github.com/goognecs/webresume/blob/main/images/cloudfront_ssl.PNG)
 
 ## **Section 2**
 ### Create GitHub repo with simple personal website.
