@@ -74,15 +74,25 @@ It's time to set up the A record to point to the S3 bucket:
 
 ![S3 Endpoint](https://github.com/goognecs/webresume/blob/main/images/a_record.PNG)
 
-### 7. Create a CloudFront Distribution
+#### 2. Update Namecheap DNS (Using CNAME):
+Since Namecheap doesn’t support ALIAS records for root domains, you must use a subdomain ( resume.iamnecs.com).
 
+1. Go to Namecheap DNS Settings
+   * Log in → Domain List → Select your domain → Manage → Advanced DNS.
+
+2. Add a CNAME Record
+   * Type: CNAME
+   * Host: blog (for blog.yourdomain.com)
+   * Value: Your CloudFront domain (e.g., d123.cloudfront.net)
+![CNAME](https://github.com/goognecs/webresume/blob/main/images/cloud_front.PNG)
+
+### 7. Create a CloudFront Distribution
 1. Origin Domain: Select your S3 static website endpoint (resume.iamnecs.com.s3-website-us-east-1.amazonaws.com) 
 ![Cloudfront](https://github.com/goognecs/webresume/blob/main/images/cloud_front.PNG)
 
 2. Viewer Protocol Policy: Redirect HTTP to HTTPS.
-
-3. SSL Certificate:
-
+3. Alternate Domain Names (CNAMEs): Add your subdomain (resume.iamnecs.com)
+4. SSL Certificate:
    * Select the SSL certificate we created on Amazon Certificate Manager for resume.iamnecs.com ![CF_SSL](https://github.com/goognecs/webresume/blob/main/images/cloudfront_ssl.PNG)
 
 ## **Section 2**
@@ -108,7 +118,33 @@ git push -u origin main
 ```
 
 ## **Section 3**
-3. Deploy an application with GitHub Actions and Amazon S3.
+### Deploy web-page with GitHub Actions into Amazon S3.
+#### 1. Configure AWS IAM Permissions
+  * Go to IAM → Users → Add User
+  * Name: github-actions-s3-deploy
+  * Access Type: Programmatic access (for AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY)
+Attach S3 Permissions Policy
+
+  * Attach the following inline policy (replace your-bucket-name):
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::your-bucket-name",
+                "arn:aws:s3:::your-bucket-name/*"
+            ]
+        }
+    ]
+}```
 
 The website's HTML, JS, and CSS files are stored in an S3 bucket. The website is deployed using CloudFront for content distribution and is accessed securely via HTTPS. Route 53 and ACM are used to redirect traffic to the specified domain and manage SSL certificates.
 
