@@ -13,13 +13,11 @@ Deploy an application with GitHub Actions and Amazon S3.
 ### 1. __Create an S3 Bucket__
 * Head to [AWS S3](https://console.aws.amazon.com/s3) Console → Create bucket 
 * Name it exactly my domain name (iamnecs.com)
-
 ![image](https://github.com/goognecs/webresume/blob/main/images/S3_bucket.PNG)
 
 * Enable Static Website Hosting (under "Properties")
 
 * Select "Host a static website"
-
 ![image](https://github.com/goognecs/webresume/blob/main/images/static_website.PNG)
 * Set index.html as the Index Document
 
@@ -70,7 +68,6 @@ It's time to set up the A record to point to the S3 bucket:
   * Record Type: A (IPv4).
   * Alias: Yes → Alias to S3 website endpoint.
   * Select the correct S3 endpoint (e.g., s3-website-us-east-1.amazonaws.com)
-
 ![S3 Endpoint](https://github.com/goognecs/webresume/blob/main/images/a_record.PNG)
 
 #### 2. Update Namecheap DNS (Using CNAME):
@@ -86,8 +83,7 @@ Since Namecheap doesn’t support ALIAS records for root domains, you must use a
 ![CNAME](https://github.com/goognecs/webresume/blob/main/images/cname.PNG)
 
 ### 7. Create a CloudFront Distribution
-1. Origin Domain: Select your S3 static website endpoint (resume.iamnecs.com.s3-website-us-east-1.amazonaws.com) 
-![Cloudfront](https://github.com/goognecs/webresume/blob/main/images/cloud_front.PNG)
+1. Origin Domain: Select your S3 static website endpoint (resume.iamnecs.com.s3-website-us-east-1.amazonaws.com) ![Cloudfront](https://github.com/goognecs/webresume/blob/main/images/cloud_front.PNG)
 
 2. Viewer Protocol Policy: Redirect HTTP to HTTPS.
 3. Alternate Domain Names (CNAMEs): Add your subdomain (resume.iamnecs.com)
@@ -137,13 +133,17 @@ Attach S3 Permissions Policy
                 "s3:DeleteObject"
             ],
             "Resource": [
-                "arn:aws:s3:::your-bucket-name",
-                "arn:aws:s3:::your-bucket-name/*"
+                "arn:aws:s3:::resume.iamnecs.com",
+                "arn:aws:s3:::resume.iamnecs.com/*"
             ]
         }
     ]
 }
 ```
+#### 3. Create GitHub Actions Workflow
+* In your repo, create .github/workflows/deploy.yml
+
+* Paste this YAML config (automates S3 upload on git push):
 
 ## Services used
 * S3
