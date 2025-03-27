@@ -25,10 +25,8 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       
       - name: Deploy Code to S3
-        run: 
-          aws s3 sync /resume s3://${{ env.AWS_BUCKET_NAME }} \
-            --delete \
-            --acl public-read
+        run: |
+          aws s3 sync ./resume s3://${{ env.AWS_BUCKET_NAME }} --delete --acl public-read
         
       - name: Verify Deployment
         run: |
