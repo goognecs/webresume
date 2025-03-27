@@ -65,11 +65,8 @@ It's time to set up the A record to point to the S3 bucket:
 #### 1. Go to Route 53 → Hosted Zones → Select your domain and Create a Record:
 
   * Record Name: [_resume_]() (for resume.iamnecs.com).
-
   * Record Type: A (IPv4).
-
   * Alias: Yes → Alias to S3 website endpoint.
-
   * Select the correct S3 endpoint (e.g., s3-website-us-east-1.amazonaws.com)
 
 ![S3 Endpoint](https://github.com/goognecs/webresume/blob/main/images/a_record.PNG)
@@ -84,7 +81,7 @@ Since Namecheap doesn’t support ALIAS records for root domains, you must use a
    * Type: CNAME
    * Host: blog (for blog.yourdomain.com)
    * Value: Your CloudFront domain (e.g., d123.cloudfront.net)
-![CNAME](https://github.com/goognecs/webresume/blob/main/images/cloud_front.PNG)
+![CNAME](https://github.com/goognecs/webresume/blob/main/images/cname.PNG)
 
 ### 7. Create a CloudFront Distribution
 1. Origin Domain: Select your S3 static website endpoint (resume.iamnecs.com.s3-website-us-east-1.amazonaws.com) 
