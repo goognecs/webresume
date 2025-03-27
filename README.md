@@ -48,7 +48,7 @@ The requirement is to have DNS records in AWS, you need to delegate DNS from Nam
 
    * Enter your domain (iamnecs.com)
    * Copy the generated NS (Name Server) records (e.g., ns-xxx.awsdns-xx.com).
-![NS](https://github.com/goognecs/webresume/blob/main/images/NS%20Record.PNG)
+![NS](https://github.com/goognecs/webresume/blob/main/images/hosted_zone.PNG)
 #### 2. Update Namecheap’s Nameservers to AWS
 
    * Log in to Namecheap → Domain List → Select your domain
@@ -87,7 +87,25 @@ It's time to set up the A record to point to the S3 bucket:
 
 ## **Section 2**
 ### Create GitHub repo with simple personal website.
-1. Head to www.github.com
+1. Head to www.github.com and create a repository
+
+```git
+echo "# Deploy an application with GitHub Actions and Amazon S3" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/goognecs/webresume.git
+git push -u origin main
+```
+2. Push/Upload Source-Code into Repo
+```git
+git add styles.css
+git add index.html
+git add script.js
+git commit -m "source code"
+git push -u origin main
+```
 
 ## **Section 3**
 3. Deploy an application with GitHub Actions and Amazon S3.
@@ -96,7 +114,11 @@ The website's HTML, JS, and CSS files are stored in an S3 bucket. The website is
 
 ## Services used
 S3
+
 Route 53
+
 ACM
+
 CloudFront
+
 Dynamo DB
