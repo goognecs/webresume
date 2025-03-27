@@ -26,7 +26,7 @@ jobs:
       
       - name: Deploy Code to S3
         run: |
-          aws s3 sync ./resume s3://${{ env.AWS_BUCKET_NAME }} --delete --acl public-read
+          aws s3 sync ./resume s3://${{ env.AWS_BUCKET_NAME }} --delete
         
       - name: Verify Deployment
         run: |
