@@ -3,7 +3,7 @@ name: Deploy Resume to S3
 on:
   push:
     branches: ["main"]
-    #- 'main'
+    
 env:
   AWS_BUCKET_NAME: "resume.iamnecs.com"
   AWS_REGION: "us-east-1"
@@ -28,7 +28,7 @@ jobs:
         run: |
           aws s3 sync ./resume s3://${{ env.AWS_BUCKET_NAME }} --delete
         
-      - name: Verify Deployment
+      - name: Verify Deployment.
         run: |
           aws s3 ls s3://${{ env.AWS_BUCKET_NAME }}/index.html || (echo "Error: index.html missing!" && exit 1)
 
